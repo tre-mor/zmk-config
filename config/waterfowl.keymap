@@ -3,11 +3,39 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        y_x: y_x {
+            compatible = "zmk,behavior-hold-tap";
+            label = "Y_X";
+            bindings =
+                <&kp>,
+                <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <150>;
+            hold-trigger-key-positions = <>;
+        };
+        mod_x: mod_x {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MOD_X";
+            bindings =
+                <&kp>,
+                <&kp>;
+
+            #binding-cells = <2>;
+            quick-tap-ms = <1>;
+            global-quick-tap;
+            flavor = "balanced";
+            retro-tap;
+            tapping-term-ms = <200>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-/* XMLBV
+            /* XMLBV
  *
  * ,----------------------------------.                      ,----------------------------------.
  * |   X  |   M  |   L  |   B  |   V  |                      |   Q  |   P  |   I  |   Y  |   /  |
@@ -22,14 +50,14 @@
  */
 
             bindings = <
-&kp X  &kp M  &kp L  &kp B  &kp V  &kp Q  &kp P  &kp I  &kp Y  &kp FSLH  &mt LCTRL D  &mt LSHFT S  &lt 2 T  &lt 1 N  &lt 3 R  &lt 3 U  &lt 1 A  &lt 2 E  &mt RSHFT O  &mt RCTRL H  &mt LALT Z  &kp W  &kp C  &kp G  &kp J  &kp K  &kp F  &kp COMMA  &kp DOT  &mt RIGHT_ALT SQT  &kp C_MUTE  &kp LWIN  &kp SPACE  &kp TAB  &kp F20  &kp F21  &kp ENTER  &kp BACKSPACE  &caps_word  &kp F22
+&y_x ESCAPE X  &kp M  &kp L  &kp B  &kp V  &kp Q  &kp P  &kp I  &kp Y  &y_x DELETE SLASH  &mod_x LEFT_CONTROL D  &mod_x LEFT_SHIFT S  &lt 2 T  &lt 1 N  &lt 3 R  &lt 3 U  &lt 1 A  &lt 2 E  &mod_x RIGHT_SHIFT O  &mod_x RIGHT_CONTROL H  &mod_x LEFT_ALT Z  &kp W  &kp C  &kp G  &kp J  &kp K  &kp F  &kp COMMA  &kp DOT  &mod_x RIGHT_ALT APOSTROPHE  &kp C_MUTE  &kp LWIN  &kp SPACE  &kp TAB  &kp F20  &kp F21  &kp ENTER  &kp BACKSPACE  &caps_word  &kp F22
             >;
 
             sensor-bindings = <
 				&inc_dec_kp C_VOL_DN C_VOL_UP
 				&inc_dec_kp LEFT RIGHT
-				&inc_dec_kp DOWN UP
-				&inc_dec_kp LC(LEFT) LC(RIGHT)
+				&inc_dec_kp C_AC_SCROLL_DOWN C_AC_SCROLL_UP
+				&inc_dec_kp LS(TAB) TAB
             >;
         };
 
@@ -49,7 +77,7 @@
  */
 
             bindings = <
-&kp MINUS  &kp N7  &kp N8  &kp N9  &kp LS(PLUS)  &kp LG(D)  &kp LC(HOME)  &kp HOME  &kp END  &kp LC(END)  &mt LCTRL EQUAL  &kp N4  &kp N5  &kp N6  &kp LS(STAR)  &kp ESC  &kp LEFT  &kp UP  &kp DOWN  &kp RIGHT  &mt LALT SLASH  &kp N1  &kp N2  &kp N3  &kp DOT  &kp LS(LG(RIGHT))  &kp LG(UP)  &kp LC(LEFT)  &kp LC(RIGHT)  &kp LG(DOWN)  &kp C_PLAY_PAUSE  &kp N0  &kp N0  &kp N0  &trans  &trans  &kp ENTER  &kp BACKSPACE  &kp CAPS  &trans
+&kp MINUS  &kp N7  &kp N8  &kp N9  &kp LS(PLUS)  &kp LG(D)  &kp LC(HOME)  &kp HOME  &kp END  &kp LC(END)  &mod_x LEFT_CONTROL EQUAL  &kp N4  &kp N5  &kp N6  &kp LS(STAR)  &kp ESC  &kp LEFT  &kp UP  &kp DOWN  &kp RIGHT  &mod_x LEFT_ALT SLASH  &kp N1  &kp N2  &kp N3  &kp DOT  &kp LS(LG(RIGHT))  &kp LG(UP)  &kp LC(LEFT)  &kp LC(RIGHT)  &kp LG(DOWN)  &kp C_PLAY_PAUSE  &kp N0  &kp N0  &kp N0  &trans  &trans  &kp ENTER  &kp BACKSPACE  &kp CAPS  &trans
             >;
 
             sensor-bindings = <
@@ -76,7 +104,7 @@
  */
 
             bindings = <
-&kp LC(LA(SLASH))  &kp LS(LEFT_BRACE)  &kp LS(RIGHT_BRACE)  &kp LS(AT)  &kp LS(AMPS)  &kp LS(PRCNT)  &kp LS(DLLR)  &kp LS(LT)  &kp LS(GT)  &kp FSLH  &mt LCTRL EQUAL  &kp LS(LEFT_PARENTHESIS)  &kp LS(RPAR)  &kp LS(QMARK)  &kp LS(CARET)  &kp POUND  &kp SEMI  &kp LS(UNDER)  &kp MINUS  &mt RIGHT_CONTROL AMPERSAND  &kp LALT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LS(EXCL)  &kp BSLH  &kp LS(PIPE)  &kp LS(COLON)  &kp LS(TILDE)  &kp GRAVE  &mt RALT SQT  &trans  &kp LEFT_WIN  &kp SPACE  &kp TAB  &trans  &trans  &trans  &trans  &kp CAPS  &trans
+&kp LC(LA(SLASH))  &kp LS(LEFT_BRACE)  &kp LS(RIGHT_BRACE)  &kp LS(AT)  &kp LS(AMPS)  &kp LS(PRCNT)  &kp LS(DLLR)  &kp LS(LT)  &kp LS(GT)  &kp FSLH  &mod_x LEFT_CONTROL EQUAL  &kp LS(LEFT_PARENTHESIS)  &kp LS(RPAR)  &kp LS(QMARK)  &kp LS(CARET)  &kp POUND  &kp SEMI  &kp LS(UNDER)  &kp MINUS  &mod_x RIGHT_CONTROL AMPERSAND  &kp LALT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LS(EXCL)  &kp BSLH  &kp LS(PIPE)  &kp LS(COLON)  &kp LS(TILDE)  &kp GRAVE  &mod_x RIGHT_ALT APOSTROPHE  &trans  &kp LEFT_WIN  &kp SPACE  &kp TAB  &trans  &trans  &trans  &trans  &kp CAPS  &trans
             >;
 
             sensor-bindings = <
@@ -103,7 +131,7 @@
  */
 
             bindings = <
-&kp C_AL_TASK_MANAGER  &kp F7  &kp F8  &kp F9  &kp F10  &kp C_AL_SCREENSAVER  &kp F17  &kp F18  &kp F19  &kp LC(LA(DEL))  &kp LCTRL  &kp F4  &kp F5  &kp F6  &sys_reset  &sys_reset  &kp F14  &kp F15  &kp F16  &kp RCTRL  &kp LALT  &kp F1  &kp F2  &kp F3  &kp C_POWER  &kp C_SLEEP  &kp F11  &kp F12  &kp F13  &kp RALT  &kp PSCRN  &bt BT_CLR  &bt BT_NXT  &bt BT_SEL 0  &trans  &trans  &bt BT_SEL 0  &bt BT_NXT  &bt BT_CLR  &trans
+&kp C_AL_TASK_MANAGER  &kp F7  &kp F8  &kp F9  &kp F10  &kp C_AL_SCREENSAVER  &kp F17  &kp F18  &kp F19  &kp LC(LA(DEL))  &kp LCTRL  &kp F4  &kp F5  &kp F6  &kp C_POWER  &kp C_SLEEP  &kp F14  &kp F15  &kp F16  &kp RCTRL  &kp LALT  &kp F1  &kp F2  &kp F3  &sys_reset  &sys_reset  &kp F11  &kp F12  &kp F13  &kp RALT  &kp PSCRN  &bt BT_CLR  &bt BT_NXT  &bt BT_SEL 0  &trans  &trans  &bt BT_SEL 0  &bt BT_NXT  &bt BT_CLR  &trans
             >;
 
             sensor-bindings = <
